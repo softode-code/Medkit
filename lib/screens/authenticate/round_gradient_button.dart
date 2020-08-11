@@ -13,7 +13,7 @@ class RoundGradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       color: Colors.transparent,
-      onPressed: () {print('Sign up pressed');},
+      onPressed: onPressed,
       child: Container(
         height: 70,
         width: 70,

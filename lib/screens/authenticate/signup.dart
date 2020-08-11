@@ -1,5 +1,7 @@
 import 'package:Medkit/res/colors.dart';
 import 'package:Medkit/screens/authenticate/round_gradient_button.dart';
+import 'package:Medkit/screens/home/home.dart';
+import 'package:Medkit/services/auth.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/welcome_header.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ class _SignUpState extends State<SignUp> {
   String _email = '';
   String _password = '';
   final _formkey = GlobalKey<FormState>();
+  AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,17 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.w600
                               ),
                             ),
-                            RoundGradientButton(onPressed: (){},)
+                            RoundGradientButton(
+                              onPressed: () async {
+                                if(_formkey.currentState.validate()) {
+                                  dynamic result = await _auth.registerUser(_email, _password);
+                                  if(result != null) {
+                                    Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
+                                  }
+                                }
+                              },
+                            )
                           ],
                         )
                       ],

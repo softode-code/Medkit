@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
         child: Column(
           children: [
             Container(
-              child: WelcomeHeader(size: size, title: 'Wecome\nBack', illustration: 'assets/illustrations/welcome_illustration.svg',),
+              child: WelcomeHeader(size: size, title: 'Welcome\nBack', illustration: 'assets/illustrations/welcome_illustration.svg',),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
