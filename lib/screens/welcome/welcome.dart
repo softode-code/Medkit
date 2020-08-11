@@ -1,4 +1,5 @@
 import 'package:Medkit/res/colors.dart';
+import 'package:Medkit/screens/authenticate/authenticate.dart';
 import 'package:Medkit/screens/authenticate/login.dart';
 import 'package:Medkit/screens/authenticate/signup.dart';
 import 'package:Medkit/shared/constants.dart';
@@ -33,14 +34,15 @@ class Welcome extends StatelessWidget {
               WidePrimaryButton(
                 size: size,
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Authenticate(showSignUp: false,)));
                 },
                 text: 'Login'
               ),
               WideOutlineButton(
                 size: size,
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Authenticate(showSignUp: true,)));
                 },
                 text: 'Sign Up',
               )

@@ -1,3 +1,5 @@
+import 'package:Medkit/models/user_model.dart';
+import 'package:Medkit/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -7,6 +9,8 @@ class AuthService {
     try{
       AuthResult result =  await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+      DatabaseService databaseService = DatabaseService(uid: user.uid);
+      await databaseService.updateUserData(User(name: null, email: user.email, gender: null, displayImageUrl: null));
       return user;
     } catch (e){
       print(e.toString());

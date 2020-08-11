@@ -8,6 +8,11 @@ import 'package:flutter/material.dart';
 
 
 class Login extends StatefulWidget {
+
+  final Function toggleView;
+
+  Login({this.toggleView});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -90,7 +95,7 @@ class _LoginState extends State<Login> {
                   padding: EdgeInsets.only(left: defaultPadding),
                   child: GestureDetector(
                     onTap: (){
-
+                      widget.toggleView();
                     },
                     child: Text(
                       'Sign up',
