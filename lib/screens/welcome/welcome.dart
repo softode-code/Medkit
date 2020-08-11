@@ -1,4 +1,6 @@
 import 'package:Medkit/res/colors.dart';
+import 'package:Medkit/screens/authenticate/login.dart';
+import 'package:Medkit/screens/authenticate/signup.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/welcome_header.dart';
 import 'package:Medkit/shared/widgets/wide_outline_button.dart';
@@ -28,8 +30,20 @@ class Welcome extends StatelessWidget {
           SizedBox(height: defaultPadding,),
           Column(
             children: [
-              WidePrimaryButton(size: size, onPressed: (){}, text: 'Login'),
-              WideOutlineButton(size: size, onPressed: (){}, text: 'Sign Up',)
+              WidePrimaryButton(
+                size: size,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                },
+                text: 'Login'
+              ),
+              WideOutlineButton(
+                size: size,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
+                },
+                text: 'Sign Up',
+              )
             ],
           )
         ],
