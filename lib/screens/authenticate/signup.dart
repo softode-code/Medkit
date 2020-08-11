@@ -1,4 +1,5 @@
 import 'package:Medkit/res/colors.dart';
+import 'package:Medkit/screens/authenticate/round_gradient_button.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/welcome_header.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _SignUpState extends State<SignUp> {
         child: Column(
           children: [
             Container(
-              child: WelcomeHeader(size: size, title: 'Create\nAccount', illustration: 'assets/illustrations/welcome_illustration.svg',),
+              child: WelcomeHeader(size: size, title: 'Create\nAccount', illustration: 'assets/illustrations/create_account_illustration.svg',),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,27 +66,7 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.w600
                               ),
                             ),
-                            FlatButton(
-                              color: Colors.transparent,
-                              onPressed: () {print('Sign up pressed');},
-                              child: Container(
-                                height: 70,
-                                width: 70,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    colors: [primaryColor, primaryLight],
-                                    begin: Alignment.topRight,
-                                    end: Alignment.bottomLeft,
-                                    stops: [0.5 ,1.0]
-                                  ),
-                                ),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Icon(Icons.navigate_next, color: onPrimary,),
-                                ),
-                              ),
-                            )
+                            RoundGradientButton(onPressed: (){},)
                           ],
                         )
                       ],
@@ -96,7 +77,7 @@ class _SignUpState extends State<SignUp> {
                   padding: EdgeInsets.only(left: defaultPadding),
                   child: GestureDetector(
                     onTap: (){
-                      
+
                     },
                     child: Text(
                       'Login',
