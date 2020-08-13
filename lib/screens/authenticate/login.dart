@@ -77,11 +77,7 @@ class _LoginState extends State<Login> {
                             RoundGradientButton(
                               onPressed: () async {
                                 if(_formkey.currentState.validate()) {
-                                  dynamic result = await _auth.login(_email, _password);
-                                  if(result != null) {
-                                    Navigator.pop(context);
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
-                                  }
+                                   await _auth.login(_email, _password);
                                 }
                               }
                             )

@@ -1,7 +1,13 @@
 class User {
+  String uid;
+
+  User({this.uid});
+}
+
+class UserData {
   String name, email, gender, displayImageUrl;
 
-  User({this.name, this.email, this.gender, this.displayImageUrl});
+  UserData({this.name, this.email, this.gender, this.displayImageUrl});
 
   Map<String, String> toMap (){
     return {

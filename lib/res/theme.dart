@@ -11,6 +11,15 @@ ThemeData theme = ThemeData(
       fontWeight: FontWeight.bold,
       color: Colors.white,
       fontSize: 36
+    ),
+    headline5: TextStyle(
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+      fontSize: 28
+    ),
+    subtitle2: TextStyle(
+      fontWeight: FontWeight.normal,
+      color: subtitleColor
     )
   )
 );
