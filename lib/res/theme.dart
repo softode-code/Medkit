@@ -20,6 +20,10 @@ ThemeData theme = ThemeData(
     subtitle2: TextStyle(
       fontWeight: FontWeight.normal,
       color: subtitleColor
+    ),
+    caption: TextStyle(
+       fontSize: 13,
+      fontWeight: FontWeight.w500
     )
   )
 );

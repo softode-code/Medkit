@@ -1,6 +1,6 @@
 import 'package:Medkit/models/user_model.dart';
 import 'package:Medkit/res/colors.dart';
-import 'package:Medkit/services/auth.dart';
+import 'package:Medkit/screens/home/date_row.dart';
 import 'package:Medkit/services/database.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/main_header.dart';
@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,9 @@ class Home extends StatelessWidget {
                 MainHeader(
                   title: 'Hey ' + (userData.name ?? userData.email) + ',',
                   subtitle: 'Here is your plan for today.',
-                )
+                ),
+                SizedBox(height: defaultPadding),
+                DateRow()
               ],
             ),
           ));
