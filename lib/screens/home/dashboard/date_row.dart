@@ -1,6 +1,6 @@
 import 'package:Medkit/res/colors.dart';
-import 'package:Medkit/screens/home/date_model.dart';
-import 'package:Medkit/screens/home/date_tile.dart';
+import 'package:Medkit/screens/home/dashboard/date_model.dart';
+import 'package:Medkit/screens/home/dashboard/date_tile.dart';
 import 'package:flutter/material.dart';
 
 

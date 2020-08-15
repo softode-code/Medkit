@@ -1,4 +1,4 @@
-import 'package:Medkit/screens/home/date_model.dart';
+import 'package:Medkit/screens/home/dashboard/date_model.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:flutter/material.dart';
 
