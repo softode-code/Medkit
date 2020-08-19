@@ -3,6 +3,7 @@ import 'package:Medkit/res/colors.dart';
 import 'package:Medkit/services/database.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/main_header.dart';
+import 'package:Medkit/shared/widgets/user_display_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,7 @@ class Dashboard extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                           right: defaultPadding, top: defaultPadding),
-                      child: getUserDisplayImage(userData),
+                      child: UserDisplayImage(userData: userData,),
                     )
                   ],
                 ),
@@ -53,21 +54,4 @@ class Dashboard extends StatelessWidget {
       },
     );
   }
-}
-
-Widget getUserDisplayImage(UserData userData) {
-  return Container(
-      height: 50,
-      width: 50,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(width: 2, color: primaryColor),
-          color: primaryLight),
-      child: userData.displayImageUrl == null
-          ? Icon(
-              Icons.person,
-              color: primaryColor,
-              size: 30,
-            )
-          : NetworkImage(userData.displayImageUrl, scale: 30));
 }

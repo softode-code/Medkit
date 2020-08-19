@@ -1,4 +1,5 @@
 import 'package:Medkit/screens/home/dashboard/dashboard.dart';
+import 'package:Medkit/screens/home/medications/medications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,9 +13,7 @@ class _HomeState extends State<Home> {
 
   static List<Widget> _widgetOptions =[
     Dashboard(),
-    Center(
-      child: Text('Medications'),
-    )
+    Medications()
   ];
 
   List<BottomNavigationBarItem> _navBarItems = [
@@ -40,8 +39,6 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         items: _navBarItems,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: (index){
