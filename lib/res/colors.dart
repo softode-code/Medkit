@@ -8,3 +8,5 @@ Color onWhiteBackgroundLight = Color(0x8A000000);
 Color onWhiteBackground = Color(0xFF000000);
 //80% opacity black color
 Color subtitleColor = Color(0xCC000000);
+//13% opacity input field color
+Color inputFieldColor = Color(0x21639E63);
