@@ -1,23 +1,28 @@
 import 'package:Medkit/models/user_model.dart';
 import 'package:Medkit/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 class AuthService {
-  FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null? User(uid: user.uid) : null;
+  FirebaseAuth _auth;
+  
+  AuthService() {
+    _auth = FirebaseAuth.instance;
   }
 
-  Stream<User> get user {
-    return _auth.onAuthStateChanged
+  UserModel _userFromFirebaseUser(User user) {
+    return user != null? UserModel(uid: user.uid) : null;
+  }
+
+  Stream<UserModel> get user {
+    return _auth.authStateChanges()
     .map(_userFromFirebaseUser);
   }
 
   Future registerUser(String email, String password) async {
     try{
-      AuthResult result =  await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = result.user;
+      UserCredential result =  await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
       DatabaseService databaseService = DatabaseService(uid: user.uid);
       await databaseService.updateUserData(UserData(name: null, email: user.email, gender: null, displayImageUrl: null));
       return _userFromFirebaseUser(user);
@@ -29,8 +34,8 @@ class AuthService {
 
   Future login(String email, String password) async {
     try{
-      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = result.user;
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

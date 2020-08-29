@@ -1,12 +1,14 @@
 import 'package:Medkit/models/medication_model.dart';
+import 'package:Medkit/models/user_model.dart';
 import 'package:Medkit/res/colors.dart';
-import 'package:Medkit/screens/home/medications/medications.dart';
+import 'package:Medkit/services/database.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/custom_drop_down_menu.dart';
 import 'package:Medkit/shared/widgets/custom_text_input.dart';
 import 'package:Medkit/shared/widgets/main_header.dart';
 import 'package:Medkit/shared/widgets/wide_primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class NewMedication extends StatefulWidget {
@@ -19,9 +21,26 @@ class _NewMedicationState extends State<NewMedication> {
   final _formkey = GlobalKey<FormState>();
   Medication _medication = Medication();
 
+  void _showTimePicker(){
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+
+    ).then((time) {
+      setState(() {
+        _medication.hour = time.hour;
+        _medication.minute = time.minute;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    UserModel user = Provider.of<UserModel>(context);
+
+    DatabaseService databaseService = DatabaseService(uid: user.uid);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -76,7 +95,7 @@ class _NewMedicationState extends State<NewMedication> {
                           hint: 'e.g: 1',
                           onChanged: (val) {
                             setState(() {
-                              _medication.dosage = double.parse(val);
+                              _medication.dosage = double.parse(val ?? '0');
                             });
                           },
                           validator: (val) => val == null ? 'Please enter a dose.' : null,
@@ -85,6 +104,41 @@ class _NewMedicationState extends State<NewMedication> {
                       ],
                     ),
                     SizedBox(height: defaultPadding,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Time',
+                          style: inputLabelStyle,
+                        ),
+                        Container(
+                          
+                          height: 60,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: inputFieldColor,
+                            borderRadius: BorderRadius.circular(8)
+                          ),
+                          child: FlatButton(
+                            onPressed:()  =>_showTimePicker(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  getTime(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black.withOpacity(0.5)
+                                  ),
+                                ),
+                                Icon(Icons.calendar_today, size: 24.0, color: Colors.black.withOpacity(0.5),)
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: defaultPadding),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -119,10 +173,7 @@ class _NewMedicationState extends State<NewMedication> {
                       size: size,
                       text: 'Add',
                       onPressed: () {
-                        print(_medication.name);
-                        print(_medication.dosage);
-                        print(_medication.type);
-                        print(_medication.inventory);
+                        databaseService.addMedication(_medication);
                       },
                     )
 
@@ -138,4 +189,15 @@ class _NewMedicationState extends State<NewMedication> {
 }
 
 
-
+String getTime() {
+  int hour =  TimeOfDay.now().hour;
+  String minutes = TimeOfDay.now().minute.toString();
+  String median = 'am';
+  if (hour > 12){
+    median = 'pm';
+    hour = hour - 12;
+  } else if (hour == 0){
+    hour = 12;
+  }
+  return hour.toString()  + ':' + minutes +' '+ median;
+}

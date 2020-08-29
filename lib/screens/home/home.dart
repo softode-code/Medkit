@@ -1,5 +1,6 @@
 import 'package:Medkit/screens/home/dashboard/dashboard.dart';
 import 'package:Medkit/screens/home/medications/medications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -30,9 +31,21 @@ class _HomeState extends State<Home> {
   ];
 
   int _selectedIndex =0;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('onMessage: $message');
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {  
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

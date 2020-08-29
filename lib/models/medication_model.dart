@@ -1,14 +1,13 @@
-import 'package:Medkit/models/schedule_model.dart';
 
 class Medication {
   String name;
   String type = 'Pill';
   double dosage;
   double inventory;
-  DateTime time;
-  Schedule schedule;
+  int hour;
+  int minute;
 
-  Medication({this.name, this.type, this.dosage, this.inventory, this.time, this.schedule});
+  Medication({this.name, this.type, this.dosage, this.inventory, this.hour, this.minute});
 
   List<String> types = [
     'Pill',
@@ -17,4 +16,15 @@ class Medication {
     'Inhaler',
     'Drops'
   ];
+
+  Map<String, dynamic> toMap (){
+    return {
+      'name': name,
+      'type': type,
+      'dosage': dosage,
+      'inventory': inventory,
+      'hour': hour,
+      'minute': minute
+    };
+  }
 }

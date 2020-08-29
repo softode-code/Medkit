@@ -15,7 +15,7 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<User>(context);
+    final user = Provider.of<UserModel>(context);
 
     return StreamBuilder<UserData>(
       stream: DatabaseService(uid: user.uid).userData,

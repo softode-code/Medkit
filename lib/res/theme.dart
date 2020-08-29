@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 ThemeData theme = ThemeData(
   brightness: Brightness.light,
   primaryColor: primaryColor,
+  primaryColorLight: primaryColor,
   fontFamily: 'Mulish',
   scaffoldBackgroundColor: scaffoldBackground,
   textTheme: TextTheme(
