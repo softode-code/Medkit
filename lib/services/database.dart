@@ -1,6 +1,7 @@
 import 'package:Medkit/models/medication_model.dart';
 import 'package:Medkit/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class DatabaseService {
   final String uid;
@@ -29,6 +30,19 @@ class DatabaseService {
   Future addMedication(Medication medication) async {
     CollectionReference medicationCollection = userCollection.doc(uid).collection('medication');
     return await medicationCollection.doc(medication.name).set(medication.toMap());
+  }
+
+  Future addToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging();
+    await messaging.getToken().then((value) {
+      userCollection.doc(uid).collection('tokens').doc(value).set(
+        {
+          'token': value
+        }
+      );
+      return value;
+    });
+    return null;
   }
 
 }
