@@ -10,3 +10,4 @@ Color onWhiteBackground = Color(0xFF000000);
 Color subtitleColor = Color(0xCC000000);
 //13% opacity input field color
 Color inputFieldColor = Color(0x21639E63);
+Color lowInventoryColor = Color(0xFFFF0000);

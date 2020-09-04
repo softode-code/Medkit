@@ -51,13 +51,13 @@ class MedicationTile extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: primaryColor.withOpacity(0.05),
+              color: medication.inventory <10 ? lowInventoryColor.withOpacity(0.05) : primaryColor.withOpacity(0.05),
               borderRadius: BorderRadius.circular(8)
             ),
             child: Text(
-              medication.inventory.toString() +' pills Left',
+              medication.inventory.toString() +' dosage(s) Left',
               style: TextStyle(
-                color: primaryColor,
+                color: medication.inventory <10 ? lowInventoryColor : primaryColor,
                 fontSize: 14
               ),
             ),
@@ -67,6 +67,8 @@ class MedicationTile extends StatelessWidget {
     );
   }
 }
+
+Color inventoryColor(int inventory) => inventory <10 ? lowInventoryColor : primaryColor;
 
 String getTime(int hour, int minute){
   String median = 'am';

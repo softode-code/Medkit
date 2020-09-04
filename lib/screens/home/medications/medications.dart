@@ -56,6 +56,15 @@ class Medications extends StatelessWidget {
                         minute: 43
                       ),
                     ),
+                    SizedBox(height: defaultPadding,),
+                    MedicationTile(
+                      medication: Medication(
+                        name: 'Panadol',
+                        inventory: 7,
+                        hour: 0,
+                        minute: 15
+                      ),
+                    ),
                   ],
                 ),
               ),
