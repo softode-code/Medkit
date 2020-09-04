@@ -15,6 +15,7 @@ class MedicationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(defaultPadding/1.5),
+      margin: EdgeInsets.only(top: defaultPadding/2, bottom: defaultPadding/2),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -67,8 +68,6 @@ class MedicationTile extends StatelessWidget {
     );
   }
 }
-
-Color inventoryColor(int inventory) => inventory <10 ? lowInventoryColor : primaryColor;
 
 String getTime(int hour, int minute){
   String median = 'am';

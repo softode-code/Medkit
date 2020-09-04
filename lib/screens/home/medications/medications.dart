@@ -7,7 +7,7 @@ import 'package:Medkit/shared/widgets/main_header.dart';
 import 'package:Medkit/shared/widgets/user_display_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Medkit/screens/home/medications/medication_tile.dart';
+import 'package:Medkit/screens/home/medications/medication_list.dart';
 import 'package:Medkit/models/medication_model.dart';
 
 class Medications extends StatelessWidget {
@@ -15,6 +15,21 @@ class Medications extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<UserModel>(context);
+
+    List<Medication> medication = [
+      Medication(
+        name: 'Arinac',
+        inventory: 20,
+        hour: 19,
+        minute: 43
+      ),
+      Medication(
+        name: 'Panadol',
+        inventory: 7,
+        hour: 13,
+        minute: 15
+      ),
+    ];
 
     return StreamBuilder<UserData>(
       stream: DatabaseService(uid: user.uid).userData,
@@ -47,24 +62,8 @@ class Medications extends StatelessWidget {
                       ],
                     ),
                     MainHeader(title: 'Medications,', subtitle: 'Here are all your medications.',),
-                    SizedBox(height: defaultPadding*2,),
-                    MedicationTile(
-                      medication: Medication(
-                        name: 'Arinac',
-                        inventory: 20,
-                        hour: 19,
-                        minute: 43
-                      ),
-                    ),
-                    SizedBox(height: defaultPadding,),
-                    MedicationTile(
-                      medication: Medication(
-                        name: 'Panadol',
-                        inventory: 7,
-                        hour: 0,
-                        minute: 15
-                      ),
-                    ),
+                    SizedBox(height: defaultPadding*1.5,),
+                    MedicationList(medication: medication)
                   ],
                 ),
               ),
@@ -80,8 +79,6 @@ class Medications extends StatelessWidget {
     );
   }
 }
-
-
 
 openNewMedication(context) {
   Navigator.push(context, MaterialPageRoute(
