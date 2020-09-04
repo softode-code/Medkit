@@ -23,26 +23,28 @@ class Dashboard extends StatelessWidget {
         if (snapshot.hasData) {
           UserData userData = snapshot.data;
           return SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: defaultPadding, top: defaultPadding),
-                      child: UserDisplayImage(userData: userData,),
-                    )
-                  ],
-                ),
-                MainHeader(
-                  title: 'Hey ' + (userData.name ?? userData.email) + ',',
-                  subtitle: 'Here is your plan for today.',
-                ),
-                SizedBox(height: defaultPadding),
-                DateRow()
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(defaultPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: defaultPadding),
+                        child: UserDisplayImage(userData: userData,),
+                      )
+                    ],
+                  ),
+                  MainHeader(
+                    title: 'Hey ' + (userData.name ?? userData.email) + ',',
+                    subtitle: 'Here is your plan for today.',
+                  ),
+                  SizedBox(height: defaultPadding),
+                  DateRow()
+                ],
+              ),
             ),
           );
         } else {

@@ -43,16 +43,16 @@ class _NewMedicationState extends State<NewMedication> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 100,),
-            MainHeader(title: 'New Medication,', subtitle: 'Add a new medication to keep track of.'),
-            SizedBox(height: 30,),
-            Form(
-              key: _formkey,
-              child: Padding(
-                padding: const EdgeInsets.all(defaultPadding),
+        child: Padding(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 100,),
+              MainHeader(title: 'New Medication,', subtitle: 'Add a new medication to keep track of.'),
+              SizedBox(height: 30,),
+              Form(
+                key: _formkey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -180,9 +180,9 @@ class _NewMedicationState extends State<NewMedication> {
 
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       )
     );
