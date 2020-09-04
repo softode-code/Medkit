@@ -172,8 +172,9 @@ class _NewMedicationState extends State<NewMedication> {
                     WidePrimaryButton(
                       size: size,
                       text: 'Add',
-                      onPressed: () {
-                        databaseService.addMedication(_medication);
+                      onPressed: () async {
+                        await databaseService.addMedication(_medication);
+                        Navigator.pop(context);
                       },
                     )
 
