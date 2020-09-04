@@ -45,4 +45,14 @@ class DatabaseService {
     return null;
   }
 
+  List<Medication> _medicationListfromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return Medication.mapConstructor(doc.data());
+    }).toList();
+  }
+
+  Stream<List<Medication>> get medications {
+    return userCollection.doc(uid).collection('medication').snapshots().map(_medicationListfromSnapshot);
+  }
+
 }

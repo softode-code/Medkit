@@ -9,6 +9,15 @@ class Medication {
 
   Medication({this.name, this.type, this.dosage, this.inventory, this.hour, this.minute});
 
+  Medication.mapConstructor(Map<String, dynamic> map){
+    name = map['name'];
+    type = map['type'];
+    dosage = map['dosage'];
+    inventory = map['inventory'];
+    hour = map['hour'];
+    minute = map['minute'];
+  }
+
   List<String> types = [
     'Pill',
     'Tablet',

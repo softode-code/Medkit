@@ -71,11 +71,15 @@ class MedicationTile extends StatelessWidget {
 
 String getTime(int hour, int minute){
   String median = 'am';
+  String min = minute.toString();
   if (hour >12){
     hour = hour-12;
     median = 'pm';
   } else if (hour == 0) {
     hour = 12;
   } 
-  return hour.toString() + ':' + minute.toString() +' '+ median;
+  if (minute == 0){
+    min = '00';
+  }
+  return hour.toString() + ':' + min +' '+ median;
 }

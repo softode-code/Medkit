@@ -16,55 +16,43 @@ class Medications extends StatelessWidget {
 
     final user = Provider.of<UserModel>(context);
 
-    List<Medication> medication = [
-      Medication(
-        name: 'Arinac',
-        inventory: 20,
-        hour: 19,
-        minute: 43
-      ),
-      Medication(
-        name: 'Panadol',
-        inventory: 7,
-        hour: 13,
-        minute: 15
-      ),
-    ];
-
     return StreamBuilder<UserData>(
       stream: DatabaseService(uid: user.uid).userData,
       builder: (context, snapshot) {
         if(snapshot.hasData) {
           UserData userData = snapshot.data;
 
-          return SafeArea(
-            child: Scaffold(
-              floatingActionButton: FloatingActionButton(
-                onPressed: ()=> openNewMedication(context),
-                backgroundColor: primaryColor,
-                child: Icon(
-                  Icons.add,
-                  color: onPrimary,
+          return StreamProvider<List<Medication>>.value(
+            value: DatabaseService(uid: user.uid).medications,
+            child: SafeArea(
+              child: Scaffold(
+                floatingActionButton: FloatingActionButton(
+                  onPressed: ()=> openNewMedication(context),
+                  backgroundColor: primaryColor,
+                  child: Icon(
+                    Icons.add,
+                    color: onPrimary,
+                  ),
                 ),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(defaultPadding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: defaultPadding),
-                          child: UserDisplayImage(userData: userData,),
-                        )
-                      ],
-                    ),
-                    MainHeader(title: 'Medications,', subtitle: 'Here are all your medications.',),
-                    SizedBox(height: defaultPadding*1.5,),
-                    MedicationList(medication: medication)
-                  ],
+                body: Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: defaultPadding),
+                            child: UserDisplayImage(userData: userData,),
+                          )
+                        ],
+                      ),
+                      MainHeader(title: 'Medications,', subtitle: 'Here are all your medications.',),
+                      SizedBox(height: defaultPadding*1.5,),
+                      MedicationList()
+                    ],
+                  ),
                 ),
               ),
             ),
