@@ -35,7 +35,7 @@ class Medications extends StatelessWidget {
                   ),
                 ),
                 body: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
+                  padding: const EdgeInsets.only(left: defaultPadding, right: defaultPadding, top: defaultPadding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
