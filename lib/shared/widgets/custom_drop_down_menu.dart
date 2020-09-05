@@ -8,12 +8,13 @@ class CustomDropDownMenu extends StatelessWidget {
     Key key,
     @required this.itemList,
     @required this.onChange,
-    @required this.value,
+    @required this.value, this.hint,
   }) : super(key: key);
 
   final List<String> itemList;
   final Function onChange;
-  final value;
+  final String value;
+  final String hint;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,15 @@ class CustomDropDownMenu extends StatelessWidget {
       child: DropdownButton<String>(
         icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
         value: value,
-        hint: Text('Medicine type'),
+        hint: Text( hint ?? 'Medicine type'),
         underline: Container(),
         onChanged: onChange,
         items: itemList
-        .map<DropdownMenuItem<String>>((String value){
+        .map<DropdownMenuItem<String>>((String listvalue){
           return DropdownMenuItem<String>(
-            value: value,
+            value: listvalue,
             child: Text(
-              value,
+              listvalue,
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black

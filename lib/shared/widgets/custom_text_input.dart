@@ -9,7 +9,7 @@ class CustomTextInput extends StatelessWidget {
     @required this.label,
     this.hint,
     @required this.onChanged,
-    this.validator, this.type, this.width,
+    this.validator, this.type, this.width, this.value,
     
   }) : super(key: key);
 
@@ -19,6 +19,7 @@ class CustomTextInput extends StatelessWidget {
   final Function validator;
   final TextInputType type;
   final double width;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CustomTextInput extends StatelessWidget {
           style: inputLabelStyle
         ),
         SizedBox(height: 10,),
-        CustomTextFormField(width: width, type: type, hint: hint, validator: validator, onChanged: onChanged)
+        CustomTextFormField(width: width, type: type, hint: hint, validator: validator, onChanged: onChanged, value: value,)
       ]
     );
   }
@@ -43,7 +44,7 @@ class CustomTextFormField extends StatelessWidget {
     @required this.type,
     @required this.hint,
     @required this.validator,
-    @required this.onChanged,
+    @required this.onChanged, this.value,
   }) : super(key: key);
 
   final double width;
@@ -51,6 +52,7 @@ class CustomTextFormField extends StatelessWidget {
   final String hint;
   final Function validator;
   final Function onChanged;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,7 @@ class CustomTextFormField extends StatelessWidget {
         borderRadius: BorderRadius.circular(8)
       ),
       child: TextFormField(
+        initialValue: value,
         keyboardType: type ?? TextInputType.text,
         style: TextStyle(
           color: onWhiteBackground,
