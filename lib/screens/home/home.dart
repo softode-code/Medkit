@@ -2,6 +2,7 @@ import 'package:Medkit/screens/home/dashboard/dashboard.dart';
 import 'package:Medkit/screens/home/medications/medications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {

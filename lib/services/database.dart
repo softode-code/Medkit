@@ -1,5 +1,6 @@
 import 'package:Medkit/models/medication_model.dart';
 import 'package:Medkit/models/user_model.dart';
+import 'package:Medkit/services/notification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -29,7 +30,8 @@ class DatabaseService {
 
   Future addMedication(Medication medication) async {
     CollectionReference medicationCollection = userCollection.doc(uid).collection('medication');
-    return await medicationCollection.doc(medication.name).set(medication.toMap());
+    await medicationCollection.doc(medication.name).set(medication.toMap());
+    return NotificationService().addDailyNotification(medication);
   }
 
   Future addToken() async {
