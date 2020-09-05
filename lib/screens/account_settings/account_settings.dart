@@ -1,15 +1,15 @@
+import 'dart:io';
 import 'package:Medkit/models/user_model.dart';
 import 'package:Medkit/res/colors.dart';
 import 'package:Medkit/screens/account_settings/logout_btn.dart';
 import 'package:Medkit/screens/account_settings/profile_photo.dart';
-import 'package:Medkit/services/auth.dart';
 import 'package:Medkit/services/database.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/custom_drop_down_menu.dart';
 import 'package:Medkit/shared/widgets/custom_text_input.dart';
 import 'package:Medkit/shared/widgets/main_header.dart';
-import 'package:Medkit/shared/widgets/wide_primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 
@@ -28,6 +28,19 @@ class _AccountSettingsState extends State<AccountSettings> {
     List<String> _genderList = ['Male', 'Female'];
     bool _valuesChanged = false;
     Color _saveBtnColor = Colors.grey;
+
+    File _image;
+    final picker = ImagePicker();
+
+    Future getImage() async {
+      final pickedfile = await picker.getImage(source: ImageSource.gallery);
+
+      setState(() {
+        _image = File(pickedfile.path);
+        _valuesChanged = true;
+        _saveBtnColor = primaryColor;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +71,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                     SizedBox(height: defaultPadding),
                     MainHeader(title: 'Account Settings', subtitle: ''),
                     SizedBox(height:defaultPadding),
-                    ProfilePhoto(userData: userData),
+                    ProfilePhoto(userData: userData, onPressed: getImage, image: _image,),
                     SizedBox(height: defaultPadding,),
                     Center(
                       child: Text(
@@ -70,6 +83,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         ),
                       ),
                     ),
+                    SizedBox(height: defaultPadding,),
                     Form(
                       key: _formkey,
                       child: Column(
@@ -165,6 +179,3 @@ class _AccountSettingsState extends State<AccountSettings> {
     );
   }
 }
-
-
-
