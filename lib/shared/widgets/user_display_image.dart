@@ -27,10 +27,16 @@ class UserDisplayImage extends StatelessWidget {
               color: primaryColor,
               size: 30,
             )
-          : NetworkImage(userData.displayImageUrl, scale: 30)) :
+          : CircleAvatar(
+              radius: size/2,
+              backgroundImage: NetworkImage(userData.displayImageUrl),
+              backgroundColor: primaryColor.withOpacity(0.5),
+            )
+          ):
           CircleAvatar(
             radius: size/2,
-            backgroundImage: FileImage(image)
+            backgroundImage: FileImage(image),
+            backgroundColor: primaryColor.withOpacity(0.5),
           )
     );
     }

@@ -4,6 +4,7 @@ import 'package:Medkit/res/colors.dart';
 import 'package:Medkit/screens/account_settings/logout_btn.dart';
 import 'package:Medkit/screens/account_settings/profile_photo.dart';
 import 'package:Medkit/services/database.dart';
+import 'package:Medkit/services/storage.dart';
 import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/custom_drop_down_menu.dart';
 import 'package:Medkit/shared/widgets/custom_text_input.dart';
@@ -22,7 +23,7 @@ class _AccountSettingsState extends State<AccountSettings> {
 
   final _formkey = GlobalKey<FormState>();
 
-    String _username = '';
+    String _username;
     String _gender;
 
     List<String> _genderList = ['Male', 'Female'];
@@ -53,6 +54,8 @@ class _AccountSettingsState extends State<AccountSettings> {
       builder: (context, snapshot) {
 
         UserData userData = snapshot.data;
+        DatabaseService databaseService = DatabaseService(uid: user.uid);
+        StorageService storageService = StorageService(uid: user.uid);
 
         return Scaffold(
           body: SingleChildScrollView(
@@ -143,10 +146,22 @@ class _AccountSettingsState extends State<AccountSettings> {
                                  color: _saveBtnColor
                                ),
                                child: FlatButton(
-                                 onPressed: (){
+                                 onPressed: () async {
                                    if(_valuesChanged){
                                      if(_formkey.currentState.validate()){
-                                       print('validation successful');
+                                       String photoUrl;
+                                       if (_image != null){
+                                         await storageService.uploadProfilePhoto(_image).then((value) => photoUrl = value);
+                                       }
+                                       await databaseService.updateUserData(
+                                         UserData(
+                                           name: _username ?? userData.name,
+                                           email: userData.email,
+                                           gender: _gender ?? userData.gender,
+                                           displayImageUrl: photoUrl ?? userData.displayImageUrl
+                                         )
+                                       );
+                                       Navigator.pop(context);
                                      }
                                    }
                                    
