@@ -21,7 +21,8 @@ class NotificationService{
       medication.name,
       'It\'s time to take your medication.',
       time,
-      notificationDetails
+      notificationDetails,
+      payload: medication.name
     );
     return medication;
 
