@@ -4,26 +4,27 @@ import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/res/colors.dart';
 
 class MedicationTile extends StatelessWidget {
-  const MedicationTile({
+  MedicationTile({
     Key key, 
-    @required this.medication,
+    @required this.medication, this.showBoundary,
   }) : super(key: key);
 
   final Medication medication;
+  bool showBoundary = true;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding/1.5),
+      padding: EdgeInsets.all(showBoundary? defaultPadding/1.5: 0),
       margin: EdgeInsets.only(top: defaultPadding/2, bottom: defaultPadding/2),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [BoxShadow(
+        boxShadow: showBoundary? [BoxShadow(
           color: Colors.black.withOpacity(0.08),
           offset: Offset(0,4),
           blurRadius: 10
-        )]
+        )]: []
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

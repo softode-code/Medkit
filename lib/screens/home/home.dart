@@ -1,11 +1,20 @@
+import 'package:Medkit/models/medication_model.dart';
+import 'package:Medkit/models/user_model.dart';
+import 'package:Medkit/res/colors.dart';
 import 'package:Medkit/screens/home/dashboard/dashboard.dart';
+import 'package:Medkit/screens/home/medications/medication_tile.dart';
 import 'package:Medkit/screens/home/medications/medications.dart';
-import 'package:Medkit/screens/take_medication/take_medication.dart';
+import 'package:Medkit/screens/take_medication/take_medication_dialog.dart';
+import 'package:Medkit/services/database.dart';
+import 'package:Medkit/services/notification.dart';
+import 'package:Medkit/shared/constants.dart';
+import 'package:Medkit/shared/widgets/two_buttons.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 
@@ -62,6 +71,7 @@ class _HomeState extends State<Home> {
 
   int _selectedIndex =0;
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  UserModel user;
 
   @override
   void initState() {
@@ -76,6 +86,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {  
+
+    user = Provider.of<UserModel>(context);
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -153,13 +165,7 @@ class _HomeState extends State<Home> {
               child: Text('Ok'),
               onPressed: () async {
                 Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        TakeMedication(medication: receivedNotification.payload),
-                  ),
-                );
+                await notificationRecieved(receivedNotification.payload);
               },
             )
           ],
@@ -170,10 +176,22 @@ class _HomeState extends State<Home> {
 
   void _configureSelectNotificationSubject(BuildContext context) {
     selectNotificationSubject.stream.listen((String payload) async {
-      await Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => TakeMedication(medication: payload)),
-      );
+      await notificationRecieved(payload);
     });
   }
+
+  Future notificationRecieved(String payload) async {
+    Medication medication = await DatabaseService(uid: user.uid).getMedication(payload);
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return TakeMedicationDialog(
+          medication: medication,
+          onTakePressed: ()=>print('taken'),
+          onCancelPressed: () => print('cancelled'),
+        );
+      }
+    );
+  }
+
 }

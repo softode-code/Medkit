@@ -25,7 +25,7 @@ class _MedicationListState extends State<MedicationList> {
       child: ListView.builder(
         itemCount: medications.length,
         itemBuilder: (context, index){
-          return MedicationTile(medication: medications[index],);
+          return MedicationTile(medication: medications[index], showBoundary: true,);
         }
       ),
     );

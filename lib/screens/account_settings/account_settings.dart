@@ -9,6 +9,7 @@ import 'package:Medkit/shared/constants.dart';
 import 'package:Medkit/shared/widgets/custom_drop_down_menu.dart';
 import 'package:Medkit/shared/widgets/custom_text_input.dart';
 import 'package:Medkit/shared/widgets/main_header.dart';
+import 'package:Medkit/shared/widgets/two_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -125,61 +126,29 @@ class _AccountSettingsState extends State<AccountSettings> {
                             
                           ),
                           SizedBox(height: defaultPadding),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              OutlineButton(
-                                onPressed: () => Navigator.pop(context), 
-                                child: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                    fontSize: 16
-                                  ),
-                                ),
-                                textColor: primaryColor,
-                                color: primaryColor,
-                                borderSide: BorderSide.none
-                              ),
-                              Container(
-                               decoration: BoxDecoration(
-                                 borderRadius: BorderRadius.circular(8),
-                                 color: _saveBtnColor
-                               ),
-                               child: FlatButton(
-                                 onPressed: () async {
-                                   if(_valuesChanged){
-                                     if(_formkey.currentState.validate()){
-                                       String photoUrl;
-                                       if (_image != null){
-                                         await storageService.uploadProfilePhoto(_image).then((value) => photoUrl = value);
-                                       }
-                                       await databaseService.updateUserData(
-                                         UserData(
-                                           name: _username ?? userData.name,
-                                           email: userData.email,
-                                           gender: _gender ?? userData.gender,
-                                           displayImageUrl: photoUrl ?? userData.displayImageUrl
-                                         )
-                                       );
-                                       Navigator.pop(context);
-                                     }
-                                   }
-                                   
-                                 },
-                                 child: Align(
-                                   alignment: Alignment.center,
-                                   child: Text(
-                                     'Save',
-                                     style: TextStyle(
-                                       fontSize: 16,
-                                       fontWeight: FontWeight.w500,
-                                       color: onPrimary
-                                     ),
-                                   ),
-                                 ),
-                               ),
-                              )
-                            ],
+                          TwoButtons(
+                            saveBtnColor: _saveBtnColor, 
+                            primaryText: 'Save',
+                            onPrimaryPressed: () async {
+                              if(_valuesChanged){
+                                if(_formkey.currentState.validate()){
+                                  String photoUrl;
+                                  if (_image != null){
+                                    await storageService.uploadProfilePhoto(_image).then((value) => photoUrl = value);
+                                  }
+                                  await databaseService.updateUserData(
+                                    UserData(
+                                      name: _username ?? userData.name,
+                                      email: userData.email,
+                                      gender: _gender ?? userData.gender,
+                                      displayImageUrl: photoUrl ?? userData.displayImageUrl
+                                    )
+                                  );
+                                  Navigator.pop(context);
+                                }
+                              }
+                            },
+                            onSecondaryPressed: () => Navigator.pop(context),
                           )
                         ],
                       ),

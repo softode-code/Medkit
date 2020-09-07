@@ -57,4 +57,9 @@ class DatabaseService {
     return userCollection.doc(uid).collection('medication').snapshots().map(_medicationListfromSnapshot);
   }
 
+  Future<Medication> getMedication(String payload) async {
+    DocumentSnapshot snapshot =  await userCollection.doc(uid).collection('medication').doc(payload).get();
+    return Medication.mapConstructor(snapshot.data());
+  }
+
 }
