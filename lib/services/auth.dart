@@ -1,5 +1,7 @@
+import 'package:Medkit/models/medication_model.dart';
 import 'package:Medkit/models/user_model.dart';
 import 'package:Medkit/services/database.dart';
+import 'package:Medkit/services/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
 
@@ -38,6 +40,7 @@ class AuthService {
       User user = result.user;
       DatabaseService databaseService = DatabaseService(uid: user.uid);
       await databaseService.addToken();
+      await databaseService.setAllReminders();
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -47,6 +50,7 @@ class AuthService {
 
   Future signOut() async{
     try{
+      NotificationService().cancelAll();
       return _auth.signOut();
     } catch (e) {
       print(e.toString());

@@ -57,6 +57,20 @@ class DatabaseService {
     return userCollection.doc(uid).collection('medication').snapshots().map(_medicationListfromSnapshot);
   }
 
+  Future setAllReminders() async {
+    NotificationService notificationService = NotificationService();
+    await userCollection.doc(uid).collection('medication').snapshots().forEach(
+      (element) {
+        element.docs.forEach(
+          (doc) async { 
+            await notificationService.addDailyNotification(Medication.mapConstructor(doc.data()));
+          }
+        );
+      }
+    );
+    return;
+  }
+
   Future<Medication> getMedication(String payload) async {
     DocumentSnapshot snapshot =  await userCollection.doc(uid).collection('medication').doc(payload).get();
     return Medication.mapConstructor(snapshot.data());

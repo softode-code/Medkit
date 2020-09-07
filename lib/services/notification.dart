@@ -24,7 +24,13 @@ class NotificationService{
       notificationDetails,
       payload: medication.name
     );
+    print('Medication Notification added: ');
+    print(medication.toMap());
     return medication;
-
   }
+
+  Future cancelAll() async {
+    await FlutterLocalNotificationsPlugin().cancelAll();
+  }
+
 }
