@@ -61,6 +61,7 @@ class _SignUpState extends State<SignUp> {
                               _password = val;
                             });
                           },
+                          obscureText: true,
                         ),
                         SizedBox(height: defaultPadding*2,),
                         Row(

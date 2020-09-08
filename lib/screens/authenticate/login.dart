@@ -61,6 +61,7 @@ class _LoginState extends State<Login> {
                               _password = val;
                             });
                           },
+                          obscureText: true,
                         ),
                         SizedBox(height: defaultPadding*2,),
                         Row(

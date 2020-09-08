@@ -20,14 +20,16 @@ class _NewMedicationState extends State<NewMedication> {
 
   final _formkey = GlobalKey<FormState>();
   Medication _medication = Medication();
+  TimeOfDay _timeOfDay = TimeOfDay.now();
 
   void _showTimePicker(){
     showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: _timeOfDay,
 
     ).then((time) {
       setState(() {
+        _timeOfDay = time;
         _medication.hour = time.hour;
         _medication.minute = time.minute;
       });
@@ -187,18 +189,19 @@ class _NewMedicationState extends State<NewMedication> {
       )
     );
   }
-}
 
-
-String getTime() {
-  int hour =  TimeOfDay.now().hour;
-  String minutes = TimeOfDay.now().minute.toString();
-  String median = 'am';
-  if (hour > 12){
-    median = 'pm';
-    hour = hour - 12;
-  } else if (hour == 0){
-    hour = 12;
+  String getTime() {
+    int hour =  _timeOfDay.hour;
+    String minutes = _timeOfDay.minute.toString();
+    String median = 'am';
+    if (hour > 12){
+      median = 'pm';
+      hour = hour - 12;
+    } else if (hour == 0){
+      hour = 12;
+    }
+    return hour.toString()  + ':' + minutes +' '+ median;
   }
-  return hour.toString()  + ':' + minutes +' '+ median;
 }
+
+
