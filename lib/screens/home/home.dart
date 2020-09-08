@@ -187,8 +187,13 @@ class _HomeState extends State<Home> {
       builder: (context) {
         return TakeMedicationDialog(
           medication: medication,
-          onTakePressed: ()=>print('taken'),
-          onCancelPressed: () => print('cancelled'),
+          onTakePressed: () async{
+            await DatabaseService(uid: user.uid).updateInventory(medication);
+            Navigator.pop(context);
+          },
+          onCancelPressed: () {
+            Navigator.pop(context);
+          },
         );
       }
     );

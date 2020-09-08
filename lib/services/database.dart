@@ -76,4 +76,14 @@ class DatabaseService {
     return Medication.mapConstructor(snapshot.data());
   }
 
+  Future updateInventory(Medication medication) async {
+    medication.inventory = medication.inventory - medication.dosage;
+    await userCollection.doc(uid).collection('medication').doc(medication.name).update(
+      {
+        'inventory': medication.inventory
+      }
+
+    );
+  }
+
 }
